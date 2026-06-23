@@ -10,3 +10,11 @@ wheels/
 .venv
 
 .csv
+
+
+# dbt files
+/target/
+/logs/
+/plugins/
+/dbt_project.yml
+/profiles.yml
