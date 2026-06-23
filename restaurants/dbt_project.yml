@@ -30,7 +30,19 @@ clean-targets:         # directories to be removed by `dbt clean`
 # directory as views. These settings can be overridden in the individual model
 # files using the `{{ config(...) }}` macro.
 models:
-  restaurants:
+  landing:
     # Config indicated by + and applies to all files under models/example/
-    example:
-      +materialized: view
+    +materialized: table
+    +schema: landing
+  bronze:
+    # Config indicated by + and applies to all files under models/example/
+    +materialized: table
+    +schema: bronze
+  silver:
+    # Config indicated by + and applies to all files under models/example/
+    +materialized: table
+    +schema: silver
+  gold:
+    # Config indicated by + and applies to all files under models/example/
+    +materialized: table
+    +schema: gold
