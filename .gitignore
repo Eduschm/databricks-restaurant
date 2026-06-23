@@ -18,3 +18,5 @@ wheels/
 /plugins/
 /dbt_project.yml
 /profiles.yml
+.env
+*.env

@@ -5,7 +5,8 @@ sources:
     description: "Raw data landed from Azure SQL via Lakehouse Federation and Event Hubs"
     database: restaurantsworkspace
     schema: landing
-    tags: ["bronze", "raw"]
+    config:
+      tags: ["bronze", "raw"]
 
     tables:
       - name: customers
@@ -36,8 +37,9 @@ sources:
             tests:
               - not_null
               - relationships:
-                  to: source('landing', 'restaurants')
-                  field: restaurant_id
+                  arguments:
+                    to: source('landing', 'restaurants')
+                    field: restaurant_id
 
       - name: reviews
         description: "Customer reviews from Azure SQL"
@@ -46,8 +48,9 @@ sources:
             tests:
               - not_null
               - relationships:
-                  to: source('landing', 'restaurants')
-                  field: restaurant_id
+                  arguments:
+                    to: source('landing', 'restaurants')
+                    field: restaurant_id
 
       - name: historical_orders
         description: "One-time historical orders load from Azure SQL"

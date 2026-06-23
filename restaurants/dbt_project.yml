@@ -6,7 +6,7 @@ name: 'restaurants'
 version: '1.0.0'
 
 # This setting configures which "profile" dbt uses for this project.
-profile: 'restaurants'
+profile: 'restaurantsworkspace'
 
 # These configurations specify where dbt should look for different types of files.
 # The `model-paths` config, for example, states that models in this project can be
@@ -30,19 +30,16 @@ clean-targets:         # directories to be removed by `dbt clean`
 # directory as views. These settings can be overridden in the individual model
 # files using the `{{ config(...) }}` macro.
 models:
-  landing:
-    # Config indicated by + and applies to all files under models/example/
-    +materialized: table
-    +schema: landing
-  bronze:
-    # Config indicated by + and applies to all files under models/example/
-    +materialized: table
-    +schema: bronze
-  silver:
-    # Config indicated by + and applies to all files under models/example/
-    +materialized: table
-    +schema: silver
-  gold:
-    # Config indicated by + and applies to all files under models/example/
-    +materialized: table
-    +schema: gold
+  restaurants:
+    landing:
+      +materialized: table
+      +schema: landing
+    bronze:
+      +materialized: table
+      +schema: bronze
+    silver:
+      +materialized: table
+      +schema: silver
+    gold:
+      +materialized: table
+      +schema: gold
