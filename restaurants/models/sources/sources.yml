@@ -52,4 +52,11 @@ sources:
             tests:
               - not_null
 
+      - name: orders
+        description: "Orders stream from Azure SQL via Event Hubs"
+        columns:
+          - name: restaurant_id
+            tests:
+              - not_null
+
   

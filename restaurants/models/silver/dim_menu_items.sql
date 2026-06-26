@@ -9,5 +9,5 @@ SELECT
     spice_level,
     current_timestamp() as updated_at
 FROM
-    {{ ref('ss_dim_menu_items') }}
+    {{ ref('menu_items_snapshot') }}
 WHERE dbt_valid_to > current_timestamp()

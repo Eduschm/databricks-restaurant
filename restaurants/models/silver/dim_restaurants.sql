@@ -1,3 +1,3 @@
 SELECT * FROM
-{{ ref('ss_dim_restaurants') }}
+{{ ref('restaurants_snapshot') }}
 WHERE dbt_valid_to > current_timestamp()

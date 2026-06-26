@@ -1,9 +1,9 @@
 snapshots:
-  - name: menu_items_snapshot
-    relation: source('dim_menu_items', 'menu_items')
+  - name: customer_snapshot
+    relation: ref('bronze', 'customers')
     config:
       schema: snapshots
-      unique_key: item_id
+      unique_key: customer_id
       strategy: timestamp
       updated_at: updated_at
       hard_deletes: invalidate
