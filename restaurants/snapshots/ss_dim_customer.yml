@@ -1,0 +1,10 @@
+snapshots:
+  - name: customer_snapshot
+    relation: source('dim_customer', 'customer')
+    config:
+      schema: snapshots
+      unique_key: customer_id
+      strategy: timestamp
+      updated_at: updated_at
+      hard_deletes: invalidate
+      dbt_valid_to_current: '9999-12-31'

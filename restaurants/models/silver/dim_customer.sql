@@ -1,2 +1,3 @@
 SELECT * FROM
-{{ source('landing', 'customers') }}
+{{ ref('ss_dim_customer') }}
+WHERE dbt_valid_to > current_timestamp()

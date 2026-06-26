@@ -1,0 +1,10 @@
+snapshots:
+  - name: menu_items_snapshot
+    relation: source('dim_menu_items', 'menu_items')
+    config:
+      schema: snapshots
+      unique_key: item_id
+      strategy: timestamp
+      updated_at: updated_at
+      hard_deletes: invalidate
+      dbt_valid_to_current: '9999-12-31'

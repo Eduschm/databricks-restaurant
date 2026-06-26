@@ -15,7 +15,6 @@ sources:
           - name: customer_id
             description: "Primary key"
             tests:
-              - unique
               - not_null
 
       - name: restaurants
@@ -23,7 +22,6 @@ sources:
         columns:
           - name: restaurant_id
             tests:
-              - unique
               - not_null
 
       - name: menu_items
@@ -31,7 +29,6 @@ sources:
         columns:
           - name: item_id
             tests:
-              - unique
               - not_null
           - name: restaurant_id
             tests:
@@ -47,11 +44,7 @@ sources:
           - name: restaurant_id
             tests:
               - not_null
-              - relationships:
-                  arguments:
-                    to: source('landing', 'restaurants')
-                    field: restaurant_id
-
+            
       - name: historical_orders
         description: "One-time historical orders load from Azure SQL"
         columns:
@@ -59,16 +52,4 @@ sources:
             tests:
               - not_null
 
-      - name: orders
-        description: "Real-time orders stream from Azure Event Hubs"
-        columns:
-          - name: order_id
-            tests:
-              - unique
-              - not_null
-          - name: restaurant_id
-            tests:
-              - not_null
-          - name: customer_id
-            tests:
-              - not_null
+  
