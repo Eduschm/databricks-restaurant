@@ -1,6 +1,6 @@
 snapshots:
   - name: customer_snapshot
-    relation: ref('bronze', 'customers')
+    relation: ref('landing', 'customers')
     config:
       schema: snapshots
       unique_key: customer_id

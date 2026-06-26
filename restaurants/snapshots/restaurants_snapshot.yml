@@ -1,6 +1,6 @@
 snapshots:
   - name: restaurants_snapshot
-    relation: ref('bronze', 'restaurants')
+    relation: ref('landing', 'restaurants')
     config:
       schema: snapshots
       unique_key: restaurant_id

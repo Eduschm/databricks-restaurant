@@ -1,6 +1,6 @@
 snapshots:
   - name: menu_items_snapshot
-    relation: ref('bronze', 'menu_items')
+    relation: ref('landing', 'menu_items')
     config:
       schema: snapshots
       unique_key: item_id
