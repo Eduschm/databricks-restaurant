@@ -1,0 +1,139 @@
+<svg viewBox="0 0 1480 660" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', system-ui, -apple-system, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#94a3b8"/>
+    </marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.10"/>
+    </filter>
+    <style>
+      .title   { font-size: 30px; font-weight: 700; fill: #0f172a; }
+      .sub     { font-size: 15px; fill: #64748b; }
+      .lane    { font-size: 12px; font-weight: 700; fill: #94a3b8; letter-spacing: 2px; }
+      .nlabel  { font-size: 14px; font-weight: 600; }
+      .nsub    { font-size: 11px; }
+      .elabel  { font-size: 11px; fill: #64748b; }
+      .leg     { font-size: 12px; fill: #475569; }
+      .edge    { stroke: #94a3b8; stroke-width: 2; fill: none; }
+    </style>
+  </defs>
+
+  <!-- card -->
+  <rect x="1" y="1" width="1478" height="658" rx="20" fill="#ffffff" stroke="#e5e7eb"/>
+
+  <!-- header -->
+  <text class="title" x="48" y="58">Restaurant Lakehouse · Data Flow</text>
+  <text class="sub" x="49" y="86">Dual ingestion → medallion architecture · SCD2 history on dimensions · facts parsed in silver</text>
+
+  <!-- lane labels -->
+  <text class="lane" transform="translate(28,225) rotate(-90)" text-anchor="middle">DIMENSIONS</text>
+  <text class="lane" transform="translate(28,415) rotate(-90)" text-anchor="middle">ORDERS · EVENTS</text>
+
+  <!-- ===================== EDGES (drawn first, under nodes) ===================== -->
+  <!-- source -> landing dims (batch) -->
+  <path class="edge" d="M178,292 C 300,250 360,218 498,216" marker-end="url(#arrow)"/>
+  <text class="elabel" x="338" y="236" text-anchor="middle">Lakehouse Federation · batch</text>
+  <!-- source -> event hub (producer) -->
+  <path class="edge" d="M158,350 C 200,400 215,414 248,416" marker-end="url(#arrow)"/>
+  <text class="elabel" x="150" y="408" text-anchor="middle">producer</text>
+  <!-- event hub -> landing orders -->
+  <path class="edge" d="M412,415 L496,415" marker-end="url(#arrow)"/>
+  <text class="elabel" x="454" y="404" text-anchor="middle">stream</text>
+  <!-- landing dims -> snapshots -->
+  <path class="edge" d="M702,215 L758,215" marker-end="url(#arrow)"/>
+  <!-- snapshots -> silver dims -->
+  <path class="edge" d="M962,215 L1018,215" marker-end="url(#arrow)"/>
+  <text class="elabel" x="990" y="204" text-anchor="middle">current</text>
+  <!-- landing orders -> bronze -->
+  <path class="edge" d="M702,415 L758,415" marker-end="url(#arrow)"/>
+  <!-- bronze -> silver fact -->
+  <path class="edge" d="M962,415 L1018,415" marker-end="url(#arrow)"/>
+  <text class="elabel" x="990" y="404" text-anchor="middle">from_json · explode</text>
+  <!-- silver dims -> gold -->
+  <path class="edge" d="M1222,215 C 1242,252 1248,268 1262,284" marker-end="url(#arrow)"/>
+  <!-- silver fact -> gold -->
+  <path class="edge" d="M1222,415 C 1242,378 1248,362 1262,346" marker-end="url(#arrow)"/>
+
+  <!-- ===================== NODES ===================== -->
+  <!-- Azure SQL (source cylinder) -->
+  <g filter="url(#shadow)">
+    <path d="M65,266 V356 A57 15 0 0 0 179 356 V266" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+    <ellipse cx="122" cy="266" rx="57" ry="15" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+  </g>
+  <text class="nlabel" x="122" y="318" text-anchor="middle" fill="#1e40af">Azure SQL</text>
+  <text class="nsub" x="122" y="336" text-anchor="middle" fill="#3b6fb0">OLTP source</text>
+
+  <!-- Event Hub -->
+  <g filter="url(#shadow)">
+    <rect x="252" y="385" width="160" height="60" rx="30" fill="#cffafe" stroke="#06b6d4" stroke-width="1.5"/>
+  </g>
+  <text class="nlabel" x="332" y="410" text-anchor="middle" fill="#0e7490">Azure Event Hub</text>
+  <text class="nsub" x="332" y="428" text-anchor="middle" fill="#1597ad">streaming ingest</text>
+
+  <!-- landing dims -->
+  <g filter="url(#shadow)">
+    <rect x="500" y="180" width="202" height="72" rx="12" fill="#eef2f6" stroke="#94a3b8" stroke-width="1.5"/>
+  </g>
+  <text class="nlabel" x="601" y="208" text-anchor="middle" fill="#334155">landing · raw</text>
+  <text class="nsub" x="601" y="227" text-anchor="middle" fill="#64748b">customers · restaurants</text>
+  <text class="nsub" x="601" y="242" text-anchor="middle" fill="#64748b">menu_items · reviews</text>
+
+  <!-- landing orders -->
+  <g filter="url(#shadow)">
+    <rect x="500" y="380" width="202" height="72" rx="12" fill="#eef2f6" stroke="#94a3b8" stroke-width="1.5"/>
+  </g>
+  <text class="nlabel" x="601" y="410" text-anchor="middle" fill="#334155">landing · orders</text>
+  <text class="nsub" x="601" y="430" text-anchor="middle" fill="#64748b">stream + historical_orders</text>
+
+  <!-- snapshots -->
+  <g filter="url(#shadow)">
+    <rect x="760" y="180" width="202" height="72" rx="12" fill="#efe9fe" stroke="#8b5cf6" stroke-width="1.5"/>
+  </g>
+  <text class="nlabel" x="861" y="208" text-anchor="middle" fill="#5b21b6">snapshots · SCD2</text>
+  <text class="nsub" x="861" y="228" text-anchor="middle" fill="#7c5cd6">customer · menu_items</text>
+  <text class="nsub" x="861" y="243" text-anchor="middle" fill="#7c5cd6">restaurants</text>
+
+  <!-- bronze -->
+  <g filter="url(#shadow)">
+    <rect x="760" y="380" width="202" height="72" rx="12" fill="#f6e3cd" stroke="#b87333" stroke-width="1.5"/>
+  </g>
+  <text class="nlabel" x="861" y="408" text-anchor="middle" fill="#8a5a2b">bronze</text>
+  <text class="nsub" x="861" y="428" text-anchor="middle" fill="#a06a35">orders (items JSON) · reviews</text>
+
+  <!-- silver dims -->
+  <g filter="url(#shadow)">
+    <rect x="1020" y="180" width="202" height="72" rx="12" fill="#e3e8f0" stroke="#64748b" stroke-width="1.5"/>
+  </g>
+  <text class="nlabel" x="1121" y="205" text-anchor="middle" fill="#334155">silver · dimensions</text>
+  <text class="nsub" x="1121" y="224" text-anchor="middle" fill="#5b6b80">dim_customer · dim_restaurants</text>
+  <text class="nsub" x="1121" y="239" text-anchor="middle" fill="#5b6b80">dim_menu_items</text>
+
+  <!-- silver fact -->
+  <g filter="url(#shadow)">
+    <rect x="1020" y="380" width="202" height="72" rx="12" fill="#e3e8f0" stroke="#64748b" stroke-width="1.5"/>
+  </g>
+  <text class="nlabel" x="1121" y="410" text-anchor="middle" fill="#334155">silver · fact_orders</text>
+  <text class="nsub" x="1121" y="430" text-anchor="middle" fill="#5b6b80">items JSON → exploded lines</text>
+
+  <!-- gold (planned, spans both lanes) -->
+  <g filter="url(#shadow)">
+    <rect x="1262" y="180" width="186" height="272" rx="12" fill="#fbf1d2" stroke="#d4af37" stroke-width="1.5" stroke-dasharray="6 4"/>
+  </g>
+  <text class="nlabel" x="1355" y="306" text-anchor="middle" fill="#8a6d1f">gold · marts</text>
+  <text class="nsub" x="1355" y="326" text-anchor="middle" fill="#a08326">facts / aggregates</text>
+  <text class="nsub" x="1355" y="344" text-anchor="middle" fill="#a08326" font-style="italic">(planned)</text>
+
+  <!-- ===================== LEGEND ===================== -->
+  <g transform="translate(48,612)">
+    <rect x="0" y="-13" width="16" height="16" rx="4" fill="#eef2f6" stroke="#94a3b8"/>
+    <text class="leg" x="24" y="0">Landing</text>
+    <rect x="120" y="-13" width="16" height="16" rx="4" fill="#efe9fe" stroke="#8b5cf6"/>
+    <text class="leg" x="144" y="0">Snapshots (SCD2)</text>
+    <rect x="300" y="-13" width="16" height="16" rx="4" fill="#f6e3cd" stroke="#b87333"/>
+    <text class="leg" x="324" y="0">Bronze</text>
+    <rect x="408" y="-13" width="16" height="16" rx="4" fill="#e3e8f0" stroke="#64748b"/>
+    <text class="leg" x="432" y="0">Silver</text>
+    <rect x="510" y="-13" width="16" height="16" rx="4" fill="#fbf1d2" stroke="#d4af37" stroke-dasharray="4 3"/>
+    <text class="leg" x="534" y="0">Gold (planned)</text>
+  </g>
+</svg>
